@@ -18,9 +18,14 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true
+    webpackBuildWorker: false,
+  },
+  webpack: (config, { dev, isServer }) => {
+    // Disable webpack caching in development
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
   },
 }
 
@@ -47,4 +52,3 @@ function mergeConfig(nextConfig, userConfig) {
 }
 
 export default nextConfig
-
